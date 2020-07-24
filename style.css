@@ -1,1 +1,19 @@
-body { background-color: mediumspringgreen; }
+body {
+    font-family: 'Lato', serif;
+    font-size: 22px;
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+img {
+    width: 600px;
+    display: block;
+    margin: 0 auto;
+    opacity: 0.5;
+    transition-duration: 0.5s;
+}
+
+img:hover {
+    opacity: 1;
+    transition-duration: 0.5s;
+}
