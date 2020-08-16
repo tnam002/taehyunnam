@@ -1,1 +1,1 @@
-console.log('hello there');
+console.log("tae's app.js connected");
