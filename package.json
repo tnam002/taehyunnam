@@ -1,0 +1,27 @@
+{
+  "name": "taehyunnam",
+  "version": "1.0.0",
+  "description": "voice chat app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tnam002/taehyunnam.git"
+  },
+  "author": "Tae Hyun Nam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tnam002/taehyunnam/issues"
+  },
+  "homepage": "https://github.com/tnam002/taehyunnam#readme",
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
