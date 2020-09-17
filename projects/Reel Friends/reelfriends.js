@@ -1,25 +1,24 @@
-// // ***** REQUESTING ACCESS TO USER'S CAMERA / MICROPHONE *****
+const express = require('express');
+const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+const { v4: uuidV4 } = require('uuid');
 
-// // constraints for which media device we are looking for
-// const constraints = { 'video': true, 'audio': true }
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
-// // request access to user's media devices
-// navigator.mediaDevices.getUserMedia(constraints)
-//     .then(stream => { console.log('Got MediaStream:', stream); })
-//     .catch(error => { console.error('Error accessing media devices.', error); });
+app.get('/', (req, res) => {
+    res.redirect(`/${uuidV4()}`);
+});
 
-// ***** GETTING MEDIA DEVICE INFORMATION FOR THE USER *****
+app.get('/:room', (req, res) => {
+    res.render('room', { roomId: req.params.room })
+});
 
-// /* define a function that takes in a device type, gets all media devices, filters, and uses the callback function 
-// on each MediaDeviceInfo object */
-// function getConnectedDevices(type, callback) {
-//     navigator.mediaDevices.enumerateDevices()
-//         .then( devices => { const filtered = devices.filter(device => device.kind === type); callback(filtered); } );
-// }
+io.on('connection', socket => {
+    socket.on('join-room', (roomId, userId) => {
+        console.log(roomId, userId);
+    });
+});
 
-// // gets and prints info on every type of media device type: cameras, microphones, and speakers
-// getConnectedDevices('videoinput', cameras => console.log('Cameras found', cameras));
-// getConnectedDevices('audioinput', microphones => console.log('Microphones found', microphones));
-// getConnectedDevices('audiooutput', speakers => console.log('Speakers found', speakers));
-
-
+server.listen(3000);
