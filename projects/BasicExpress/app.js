@@ -1,11 +1,27 @@
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
+const axios = require('axios');
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
-    res.render('home');
+var friends = ['Randy', 'Brandon', 'Michelle', 'Ciano', 'Jeffrey'];
+
+app.get('/', (req, res) => { res.render('home'); });
+
+eval(require('locus'));
+
+axios.get('https://jsonplaceholder.typicode.com/users/2')
+  .then(response => console.log(response.data.address.geo.lat))
+  .catch(error => console.log(error));
+
+app.get('/friends', (req, res) => { res.render('friends', { friends }); })
+
+app.post('/addfriend', (req, res) => {
+    friends.push(req.body.friendName);
+    res.redirect('/friends');
 });
 
 app.get('/love/:animal', (req, res) => {
@@ -27,4 +43,4 @@ app.get('*', (req, res) => {
     res.send('The page was not found, but you can find yourself.');
 })
 
-app.listen(3000);
+app.listen(3000, () => console.log('*************** Server started at port 3000 ***************'));
