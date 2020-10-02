@@ -11,13 +11,16 @@ var friends = ['Randy', 'Brandon', 'Michelle', 'Ciano', 'Jeffrey'];
 
 app.get('/', (req, res) => { res.render('home'); });
 
-eval(require('locus'));
+// eval(require('locus'));
 
 axios.get('https://jsonplaceholder.typicode.com/users/2')
   .then(response => console.log(response.data.address.geo.lat))
   .catch(error => console.log(error));
 
-app.get('/friends', (req, res) => { res.render('friends', { friends }); })
+app.get('/friends', (req, res) => {
+    res.render('friends', { friends });
+    console.log(`${req.query.hello} was typed in the query`);
+});
 
 app.post('/addfriend', (req, res) => {
     friends.push(req.body.friendName);
