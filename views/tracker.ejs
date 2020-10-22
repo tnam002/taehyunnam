@@ -1,0 +1,16 @@
+<%- include('partials/header.ejs') %>
+
+<div class="container">
+    <h1>
+        Hello, <%= user.name %>.<br>
+        You have <%= user.minutes%> minutes saved up.<br>
+        This equates to $<%= (user.minutes / 10).toFixed(2) %> of spending money!
+    </h1>
+
+    <form action="/tracker" method="POST">
+        <input type="number" name="minutes">
+        <button type="submit">Update</button>
+    </form>
+</div>
+
+<%- include('partials/footer.ejs') %>
