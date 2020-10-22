@@ -7,7 +7,9 @@ const   express = require('express'),
 
 
 // APP CONFIG
-mongoose.connect('mongodb+srv://tnam002:SbBOsCtaSEJ06wHr@basicdatabase.kn82l.mongodb.net/TaeHyunNam?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://tnam002:SbBOsCtaSEJ06wHr@basicdatabase.kn82l.mongodb.net/TaeHyunNam?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(connect => console.log('connected to mongodb..'))
+    .catch(e => console.log('could not connect to mongodb', e));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyparser.urlencoded({ extended: true }));
@@ -27,13 +29,10 @@ app.get('/tracker', (req, res) => {
     });
 });
 app.post('/tracker', (req, res) => {
-    User.updateOne(
-        {name: 'Tae'},
-        { $inc: { minutes: Number(req.body.minutes) }},
-        (err, data) => {
-            if (err) { console.log(err); }
-            res.redirect('/tracker'); 
-        });
+    User.updateOne({name: 'Tae'}, { $inc: { minutes: Number(req.body.minutes) }}, (err, data) => {
+        if (err) { console.log(err); }
+        res.redirect('/tracker'); 
+    });
 });
 
 // LISTEN
