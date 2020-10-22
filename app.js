@@ -24,7 +24,7 @@ app.get('/ideas', (req, res) => res.render('ideas'));
 app.get('/mbti', (req, res) => res.render('mbti'));
 app.get('/tracker', (req, res) => {
     User.findOne({ name: 'Tae' }, (err, data) => {
-        if (err) { console.log(err); }
+        if (err) { console.log(err); res.send(err); }
         res.render('tracker', { user: data });
     });
 });
