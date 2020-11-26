@@ -22,14 +22,14 @@ const   userSchema = new mongoose.Schema({ name: String, minutes: Number }),
 app.get('/', (req, res) => res.render('index'));
 app.get('/ideas', (req, res) => res.render('ideas'));
 app.get('/mbti', (req, res) => res.render('mbti'));
-app.get('/tracker', (req, res) => {
-    User.findOne({ name: 'Tae' }, (err, data) => {
+app.get('/tracker', async (req, res) => {
+    await User.findOne({ name: 'Tae' }, (err, data) => {
         if (err) { console.log(err); res.send(err); }
         res.render('tracker', { user: data });
     });
 });
-app.post('/tracker', (req, res) => {
-    User.updateOne({name: 'Tae'}, { $inc: { minutes: Number(req.body.minutes) }}, (err, data) => {
+app.post('/tracker', async (req, res) => {
+    await User.updateOne({name: 'Tae'}, { $inc: { minutes: Number(req.body.minutes) }}, (err, data) => {
         if (err) { console.log(err); }
         res.redirect('/tracker'); 
     });
