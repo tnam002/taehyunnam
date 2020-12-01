@@ -28,8 +28,8 @@ app.get('/tracker', async (req, res) => {
         res.render('tracker', { user: data });
     });
 });
-app.post('/tracker', async (req, res) => {
-    await User.updateOne({name: 'Tae'}, { $inc: { minutes: Number(req.body.minutes) }}, (err, data) => {
+app.post('/tracker', (req, res) => {
+    User.updateOne({name: 'Tae'}, { $inc: { minutes: Number(req.body.minutes) }}, (err, data) => {
         if (err) { console.log(err); }
         res.redirect('/tracker'); 
     });
